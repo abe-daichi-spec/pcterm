@@ -1,88 +1,98 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>全商情報1級 逆引きマスター155</title>
-    <style>
-        :root { --primary: #007bff; --success: #28a745; --danger: #dc3545; --bg: #f4f7f9; }
-        body { font-family: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Meiryo", sans-serif; background: var(--bg); margin: 0; padding: 15px; display: flex; flex-direction: column; align-items: center; }
-        .header { width: 100%; max-width: 500px; text-align: center; margin-bottom: 15px; }
-        .filter-area { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-bottom: 15px; }
-        select { padding: 8px; border-radius: 6px; border: 1px solid #ccc; font-size: 14px; background: white; }
-        
-        .stats { display: flex; justify-content: center; /* 中央に寄せる */gap: 10px; width: 100%; max-width: 400px; margin-bottom: 15px; }
-        .stat-box { flex: 1; background: white; padding: 15px; border-radius: 10px; text-align: center; box-shadow: 0 2px 5px rgba(0,0,0,0.05); font-size: 0.9rem; }
-        .stat-val { display: block; font-size: 1.2rem; font-weight: bold; color: var(--primary); }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>全商情報1級 用語マスター155</title>
+    <style>
+        :root { --primary: #007bff; --success: #28a745; --danger: #dc3545; --bg: #f4f7f9; }
+        body { font-family: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Meiryo", sans-serif; background: var(--bg); margin: 0; padding: 15px; display: flex; flex-direction: column; align-items: center; }
+        .header { width: 100%; max-width: 500px; text-align: center; margin-bottom: 15px; }
+        .filter-area { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-bottom: 15px; }
+        select { padding: 8px; border-radius: 6px; border: 1px solid #ccc; font-size: 14px; background: white; }
+        
+        .stats { display: flex; gap: 10px; width: 100%; max-width: 400px; margin-bottom: 15px; }
+        .stat-box { flex: 1; background: white; padding: 10px; border-radius: 10px; text-align: center; box-shadow: 0 2px 5px rgba(0,0,0,0.05); font-size: 0.9rem; }
+        .stat-val { display: block; font-size: 1.2rem; font-weight: bold; color: var(--primary); }
 
-        .card-container { perspective: 1000px; width: 100%; max-width: 400px; height: 320px; cursor: pointer; position: relative; }
-        .card { width: 100%; height: 100%; position: relative; transition: transform 0.5s; transform-style: preserve-3d; }
-        .card.flipped { transform: rotateY(180deg); }
-        .front, .back { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 30px; box-sizing: border-box; border-radius: 20px; box-shadow: 0 10px 20px rgba(0,0,0,0.1); text-align: center; }
-        .front { background: white; border: 4px solid var(--primary); }
-        .back { background: var(--primary); color: white; transform: rotateY(180deg); }
-        
-        .cat-tag { font-size: 0.75rem; background: #eee; padding: 3px 10px; border-radius: 10px; margin-bottom: 15px; color: #666; }
-        .term-text { font-size: 1.6rem; font-weight: bold; }
-        .def-text { font-size: 1.05rem; line-height: 1.6; color: #333; }
+        .card-container { perspective: 1000px; width: 100%; max-width: 400px; height: 280px; cursor: pointer; position: relative; }
+        .card { width: 100%; height: 100%; position: relative; transition: transform 0.5s; transform-style: preserve-3d; }
+        .card.flipped { transform: rotateY(180deg); }
+        .front, .back { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 30px; box-sizing: border-box; border-radius: 20px; box-shadow: 0 10px 20px rgba(0,0,0,0.1); text-align: center; }
+        .front { background: white; border: 4px solid var(--primary); }
+        .back { background: var(--primary); color: white; transform: rotateY(180deg); overflow-y: auto; }
+        
+        .cat-tag { font-size: 0.75rem; background: #eee; padding: 3px 10px; border-radius: 10px; margin-bottom: 10px; color: #666; }
+        .term-text { font-size: 1.4rem; font-weight: bold; color: #333; line-height: 1.3; }
+        .def-text { font-size: 1.05rem; line-height: 1.6; }
 
-        .judge-btns { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; width: 100%; max-width: 400px; margin-top: 20px; }
-        .btn { padding: 15px; border-radius: 12px; border: none; color: white; font-weight: bold; cursor: pointer; transition: 0.2s; }
-        .btn-ng { background: var(--danger); box-shadow: 0 4px #b02a37; }
-        .btn-ok { background: var(--success); box-shadow: 0 4px #1e7e34; }
-        .btn:active { transform: translateY(3px); box-shadow: none; }
+        .judge-btns { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; width: 100%; max-width: 400px; margin-top: 20px; }
+        .btn { padding: 15px; border-radius: 12px; border: none; color: white; font-weight: bold; font-size: 1rem; cursor: pointer; transition: 0.2s; }
+        .btn-ng { background: var(--danger); box-shadow: 0 4px #b02a37; }
+        .btn-ok { background: var(--success); box-shadow: 0 4px #1e7e34; }
+        .btn:active { transform: translateY(3px); box-shadow: none; }
 
-        .nav-controls { margin-top: 25px; display: flex; gap: 10px; }
-        .nav-btn { background: #6c757d; color: white; border: none; padding: 10px 18px; border-radius: 8px; cursor: pointer; font-size: 0.9rem; }
-        
-        .status-indicator { position: absolute; top: 15px; right: 20px; font-size: 0.8rem; font-weight: bold; }
-        .known { color: var(--success); }
-        .unknown { color: var(--danger); }
-    </style>
+        .nav-controls { margin-top: 25px; display: flex; gap: 15px; }
+        .nav-btn { background: #6c757d; color: white; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; }
+        
+        .status-indicator { position: absolute; top: 15px; right: 20px; font-size: 0.8rem; font-weight: bold; }
+        .known { color: var(--success); }
+        .unknown { color: var(--danger); }
+    </style>
 </head>
 <body>
 
 <div class="header">
-    <h2>全商情報1級 徹底マスター</h2>
-    <div class="filter-area">
-        <select id="category-filter" onchange="initLearning()"></select>
-        <select id="mode-filter" onchange="initLearning()">
-            <option value="all">すべての単語</option>
-            <option value="unlearned">未習得のみ</option>
-            <option value="learned">習得済みのみ</option>
-        </select>
-    </div>
-    <div class="stats">
-        <div class="stat-box">習得済み<span class="stat-val" id="learned-count">0</span></div>
-        <div class="stat-box">未習得<span class="stat-val" id="unlearned-count">0</span></div>
-        <div class="stat-box">達成率<span class="stat-val" id="progress-percent">0%</span></div>
-    </div>
+    <h2>全商情報1級 徹底マスター</h2>
+    
+    <div class="filter-area">
+        <select id="category-filter" onchange="initLearning()">
+            <option value="all">全ジャンル</option>
+            <option value="ハードウェア">1. ハードウェア</option>
+            <option value="システム開発">2. システム開発</option>
+            <option value="ネットワーク">3. ネットワーク</option>
+            <option value="セキュリティ">4. セキュリティ</option>
+            <option value="経営・ビジネス">5. 経営・ビジネス</option>
+            <option value="データベース">6. データベース</option>
+        </select>
+        
+        <select id="mode-filter" onchange="initLearning()">
+            <option value="all">すべての単語</option>
+            <option value="unlearned">未習得のみ</option>
+            <option value="learned">習得済みのみ</option>
+        </select>
+    </div>
+
+    <div class="stats">
+        <div class="stat-box">習得済み<span class="stat-val" id="learned-count">0</span></div>
+        <div class="stat-box">未習得<span class="stat-val" id="unlearned-count">0</span></div>
+        <div class="stat-box">達成率<span class="stat-val" id="progress-percent">0%</span></div>
+    </div>
 </div>
 
 <div class="card-container" onclick="flipCard()">
-    <div class="card" id="card">
-        <div class="front">
-            <div id="card-cat" class="cat-tag">カテゴリー</div>
-            <div class="status-indicator" id="card-status"></div>
-            <div id="def-display" class="def-text">解説を読み込み中...</div>
-            <div style="margin-top: 25px; font-size: 0.8rem; color: #999;">(クリックで正解を表示)</div>
-        </div>
-        <div class="back">
-            <div style="font-size: 0.9rem; margin-bottom: 10px; opacity: 0.8;">正解は</div>
-            <div class="term-text" id="term-display">用語</div>
-        </div>
-    </div>
+    <div class="card" id="card">
+        <div class="front">
+            <div id="card-cat" class="cat-tag">カテゴリー</div>
+            <div class="status-indicator" id="card-status"></div>
+            <div id="term-display" class="term-text">読み込み中...</div>
+            <div style="margin-top: 20px; font-size: 0.8rem; color: #999;">(クリックで解説)</div>
+        </div>
+        <div class="back">
+            <div class="def-text" id="def-display">解説文</div>
+        </div>
+    </div>
 </div>
 
 <div class="judge-btns">
-    <button class="btn btn-ng" onclick="markTerm(false); event.stopPropagation();">まだ：NG</button>
-    <button class="btn btn-ok" onclick="markTerm(true); event.stopPropagation();">覚えた：OK</button>
+    <button class="btn btn-ng" onclick="markTerm(false); event.stopPropagation();">まだ：NG</button>
+    <button class="btn btn-ok" onclick="markTerm(true); event.stopPropagation();">覚えた：OK</button>
 </div>
 
 <div class="nav-controls">
-    <button class="nav-btn" onclick="prevCard()">前へ</button>
-    <button class="nav-btn" onclick="shuffleData()">シャッフル</button>
-    <button class="nav-btn" onclick="nextCard()">次へ</button>
+    <button class="nav-btn" onclick="prevCard()">前へ</button>
+    <button class="nav-btn" onclick="shuffleData()">シャッフル</button>
+    <button class="nav-btn" onclick="nextCard()">次へ</button>
 </div>
 
 <button onclick="resetData()" style="margin-top: 40px; background: none; color: #bbb; border: none; cursor: pointer; text-decoration: underline;">学習記録をリセット</button>
@@ -245,89 +255,81 @@ const termData = [
     { cat: "データベース", term: "整合性制約", def: "関連する表の間で、データの矛盾を防ぐためのルール。" },
     { cat: "データベース", term: "副問い合わせ", def: "SQL文の中に含まれる、別のSELECT文。サブクエリ。" }
 ];
-
 let currentList = [];
 let currentIndex = 0;
-let learnedMap = JSON.parse(localStorage.getItem('zensho155_learned_v2')) || {};
-
-function setupCategoryMenu() {
-    const cats = ["all", "ハードウェア", "システム開発", "ネットワーク", "セキュリティ", "経営・ビジネス", "データベース"];
-    const select = document.getElementById('category-filter');
-    select.innerHTML = cats.map(c => `<option value="${c}">${c === 'all' ? '全ジャンル' : c}</option>`).join('');
-}
+let learnedMap = JSON.parse(localStorage.getItem('zensho155_learned')) || {};
 
 function initLearning() {
-    const cat = document.getElementById('category-filter').value;
-    const mode = document.getElementById('mode-filter').value;
-    
-    currentList = termData.filter(item => {
-        const catMatch = (cat === 'all' || item.cat === cat);
-        const isKnown = learnedMap[item.term] === true;
-        if(mode === 'unlearned') return catMatch && !isKnown;
-        if(mode === 'learned') return catMatch && isKnown;
-        return catMatch;
-    });
+    const cat = document.getElementById('category-filter').value;
+    const mode = document.getElementById('mode-filter').value;
+    
+    currentList = termData.filter(item => {
+        const catMatch = (cat === 'all' || item.cat === cat);
+        const isKnown = learnedMap[item.term] === true;
+        if(mode === 'unlearned') return catMatch && !isKnown;
+        if(mode === 'learned') return catMatch && isKnown;
+        return catMatch;
+    });
 
-    currentIndex = 0;
-    updateStats();
-    updateCard();
+    currentIndex = 0;
+    updateStats();
+    updateCard();
 }
 
 function updateCard() {
-    const card = document.getElementById('card');
-    card.classList.remove('flipped');
-    
-    if (currentList.length === 0) {
-        document.getElementById('def-display').innerText = "条件に合う用語が見つかりません。";
-        document.getElementById('term-display').innerText = "-";
-        document.getElementById('card-cat').innerText = "-";
-        return;
-    }
+    const card = document.getElementById('card');
+    card.classList.remove('flipped');
+    
+    if (currentList.length === 0) {
+        document.getElementById('term-display').innerText = "対象なし";
+        document.getElementById('def-display').innerText = "フィルタ条件を変えてみてください。";
+        document.getElementById('card-cat').innerText = "-";
+        document.getElementById('card-status').innerText = "";
+        return;
+    }
 
-    const item = currentList[currentIndex];
-    setTimeout(() => {
-        document.getElementById('card-cat').innerText = item.cat;
-        document.getElementById('def-display').innerText = item.def; // 表面が解説
-        document.getElementById('term-display').innerText = item.term; // 裏面が用語
-        
-        const statusEl = document.getElementById('card-status');
-        if(learnedMap[item.term]) {
-            statusEl.innerText = "✓ 習得済み";
-            statusEl.className = "status-indicator known";
-        } else {
-            statusEl.innerText = "未習得";
-            statusEl.className = "status-indicator unknown";
-        }
-    }, 150);
+    const item = currentList[currentIndex];
+    setTimeout(() => {
+        document.getElementById('card-cat').innerText = item.cat;
+        document.getElementById('term-display').innerText = item.term;
+        document.getElementById('def-display').innerText = item.def;
+        
+        const statusEl = document.getElementById('card-status');
+        if(learnedMap[item.term]) {
+            statusEl.innerText = "✓ 習得済み";
+            statusEl.className = "status-indicator known";
+        } else {
+            statusEl.innerText = "未習得";
+            statusEl.className = "status-indicator unknown";
+        }
+    }, 150);
 }
 
 function markTerm(isOK) {
-    if (currentList.length === 0) return;
-    const term = currentList[currentIndex].term;
-    learnedMap[term] = isOK;
-    localStorage.setItem('zensho155_learned_v2', JSON.stringify(learnedMap));
-    updateStats();
-    updateCard();
-    setTimeout(nextCard, 400);
+    if (currentList.length === 0) return;
+    const term = currentList[currentIndex].term;
+    learnedMap[term] = isOK;
+    localStorage.setItem('zensho155_learned', JSON.stringify(learnedMap));
+    updateStats();
+    updateCard();
+    setTimeout(nextCard, 400); // 判定後少し待って自動で次へ
 }
 
 function updateStats() {
-    const total = termData.length;
-    const learnedCount = termData.filter(i => learnedMap[i.term]).length;
-    document.getElementById('learned-count').innerText = learnedCount;
-    document.getElementById('unlearned-count').innerText = total - learnedCount;
-    document.getElementById('progress-percent').innerText = Math.floor((learnedCount / total) * 100) + "%";
+    const total = termData.length;
+    const learnedCount = termData.filter(i => learnedMap[i.term]).length;
+    document.getElementById('learned-count').innerText = learnedCount;
+    document.getElementById('unlearned-count').innerText = total - learnedCount;
+    document.getElementById('progress-percent').innerText = Math.floor((learnedCount / total) * 100) + "%";
 }
 
 function flipCard() { document.getElementById('card').classList.toggle('flipped'); }
 function nextCard() { if(currentList.length > 0) { currentIndex = (currentIndex + 1) % currentList.length; updateCard(); } }
 function prevCard() { if(currentList.length > 0) { currentIndex = (currentIndex - 1 + currentList.length) % currentList.length; updateCard(); } }
 function shuffleData() { currentList.sort(() => Math.random() - 0.5); currentIndex = 0; updateCard(); }
-function resetData() { if(confirm("記録をリセットしますか？")) { learnedMap = {}; localStorage.removeItem('zensho155_learned_v2'); initLearning(); } }
+function resetData() { if(confirm("記録をリセットしますか？")) { learnedMap = {}; localStorage.removeItem('zensho155_learned'); initLearning(); } }
 
-setupCategoryMenu();
 initLearning();
 </script>
 </body>
 </html>
-

@@ -8,11 +8,13 @@
         :root { --primary: #007bff; --success: #28a745; --danger: #dc3545; --bg: #f4f7f9; }
         body { font-family: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Meiryo", sans-serif; background: var(--bg); margin: 0; padding: 15px; display: flex; flex-direction: column; align-items: center; }
         .header { width: 100%; max-width: 500px; text-align: center; margin-bottom: 15px; }
-        .filter-area { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-bottom: 15px; }
-        select { padding: 8px; border-radius: 6px; border: 1px solid #ccc; font-size: 14px; background: white; }
-        
-        .stats { display: flex; justify-content: center; /* 中央に寄せる */gap: 10px; width: 100%; max-width: 400px; margin-bottom: 15px; }
-        .stat-box { flex: 1; background: white; padding: 15px; border-radius: 10px; text-align: center; box-shadow: 0 2px 5px rgba(0,0,0,0.05); font-size: 0.9rem; }
+        .filter-area {display: flex;flex-wrap: nowrap; /* 折り返さないようにする */ gap: 10px;justify-content: center; margin-bottom: 20px; width: 100%; max-width: 500px; }
+        select { flex: 1; /* セレクトボックスを均等な幅にする */ padding: 10px;border-radius: 8px;border: 1px solid #ddd;font-size: 14px; background: white; cursor: pointer;}
+
+
+
+        .stats { display: flex;justify-content: space-between; /* 両端にバランスよく配置 */gap: 10px;width: 100%;max-width: 500px; /* カードの最大幅に合わせると綺麗です */margin: 0 auto 20px auto; /* 中央寄せを確実に */ }
+　　 　　.stat-box { flex: 1;background: white;padding: 12px 5px; /* 上下を少し詰め、左右に余裕を持たせる */border-radius: 12px;text-align: center;box-shadow: 0 4px 12px rgba(0,0,0,0.08); /* 影を少し深くして浮かせる */font-size: 0.85rem;border: 1px solid #eee; }
         .stat-val { display: block; font-size: 1.2rem; font-weight: bold; color: var(--primary); }
 
         .card-container { perspective: 1000px; width: 100%; max-width: 400px; height: 320px; cursor: pointer; position: relative; }
